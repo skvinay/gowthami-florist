@@ -17,18 +17,31 @@ const OCCASIONS = [
   'Get Well Soon', 'Congratulations', 'Housewarming', 'Just Because',
 ]
 
+const TEAMS = [
+  {
+    name: 'Gowthami Flowers',
+    logo: '/flowers_logo.png',
+    tag: 'Fresh Blooms & Gifting',
+    desc: 'Everyday bouquets, arrangements and gifting — fresh, same-day, delivered across Bengaluru.',
+    phone: '9449126666',
+  },
+  {
+    name: 'Gowthami Events',
+    logo: '/events_logo.png',
+    tag: 'Est. 2009 · Décor & Weddings',
+    desc: 'Full-service floral décor for weddings, stages and celebrations of every scale.',
+    phone: '9916992276',
+  },
+]
+
 const BRANCHES = [
   {
-    area: 'BTM Layout',
-    lines: ['23, Tavarekere, Maruti Nagar, 1st Stage', '4th D Cross Road, BTM Layout', 'Bengaluru — 560068'],
+    area: 'HSR Layout',
+    lines: ['No. 647, Liss Arcade, 27th Main, 13th Cross', 'Next to Samsung, HSR Layout Sector 1', 'Bengaluru — 560102'],
   },
   {
     area: 'JP Nagar 7th Phase',
     lines: ['24, Next to Chassma.com, 4th B Main', 'Dr. P Vivekananda Layout, Santhrupthi Nagar', 'Bengaluru — 560078'],
-  },
-  {
-    area: 'HSR Layout',
-    lines: ['No. 647, Liss Arcade, 27th Main, 13th Cross', 'Next to Samsung, HSR Layout Sector 1', 'Bengaluru — 560102'],
   },
 ]
 
@@ -52,6 +65,12 @@ function Reveal({ children, as: Tag = 'div', className = '', delay = 0 }) {
       {children}
     </Tag>
   )
+}
+
+function TeamLogo({ src, alt }) {
+  const [ok, setOk] = useState(true)
+  if (!ok) return null
+  return <img className="team-logo" src={src} alt={alt} onError={() => setOk(false)} />
 }
 
 function Logo({ onFallback }) {
@@ -112,9 +131,10 @@ export default function App() {
         </a>
         <nav className="nav-links">
           <a href="#collections">Collections</a>
+          <a href="#teams">Our Teams</a>
           <a href="#occasions">Occasions</a>
           <a href="#visit">Visit</a>
-          <a className="nav-cta" href="tel:+919980992276">Order Now</a>
+          <a className="nav-cta" href="tel:+919449126666">Order Now</a>
         </nav>
       </header>
 
@@ -130,7 +150,7 @@ export default function App() {
             </p>
             <div className="hero-actions">
               <a className="btn" href="#collections">Explore Collections</a>
-              <a className="btn btn-ghost" href="https://wa.me/919980992276" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
+              <a className="btn btn-ghost" href="https://wa.me/919449126666" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
             </div>
           </div>
         </section>
@@ -148,11 +168,30 @@ export default function App() {
                 for someone we love.
               </p>
               <p>
-                Three boutiques across Bengaluru, one promise — the rare of the rarest,
+                Two boutiques across Bengaluru, one promise — the rare of the rarest,
                 delivered with care, any hour of the day.
               </p>
             </div>
           </Reveal>
+        </section>
+
+        <section id="teams" className="teams">
+          <Reveal><p className="eyebrow center">One Family</p></Reveal>
+          <Reveal as="h2" className="center-h2">Two Specialities</Reveal>
+          <div className="team-grid">
+            {TEAMS.map((t, i) => (
+              <Reveal key={t.name} className="team" delay={i * 90}>
+                <TeamLogo src={t.logo} alt={t.name} />
+                <h3>{t.name}</h3>
+                <p className="team-tag">{t.tag}</p>
+                <p className="team-desc">{t.desc}</p>
+                <div className="team-actions">
+                  <a className="btn" href={`tel:+91${t.phone}`}>Call</a>
+                  <a className="btn btn-ghost" href={`https://wa.me/91${t.phone}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </section>
 
         <section id="collections" className="collections">
@@ -192,7 +231,7 @@ export default function App() {
             ))}
           </div>
           <Reveal className="contact-row">
-            <a className="btn" href="tel:+919980992276">Call to Order</a>
+            <a className="btn" href="tel:+919449126666">Call to Order</a>
             <a className="btn btn-ghost" href="https://www.instagram.com/gowthamiflorist/" target="_blank" rel="noopener noreferrer">Instagram</a>
             <a className="btn btn-ghost" href="https://www.facebook.com/gowthamiflorist/" target="_blank" rel="noopener noreferrer">Facebook</a>
           </Reveal>
